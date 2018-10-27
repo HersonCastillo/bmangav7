@@ -6,7 +6,7 @@
             <span class="material-icons">cloud_download</span>
         </button>-->
         <mat-slide-toggle [(ngModel)]="changeTheme" (ngModelChange)="eventChangeTheme($event)">Oscurecer</mat-slide-toggle>
-        <button (click)="goTo('login')" mat-icon-button matTooltip="Iniciar sesión" [routerLink]="['login']" class="icon-mar">
+        <button [routerLink]="['login']" mat-icon-button matTooltip="Iniciar sesión" [routerLink]="['login']" class="icon-mar">
             <span class="material-icons">account_circle</span>
         </button>
         <button mat-icon-button matTooltip="Buscar mangas" [routerLink]="['buscar']" class="icon-mar">
