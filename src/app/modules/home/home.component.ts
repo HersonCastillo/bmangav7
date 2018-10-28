@@ -4,7 +4,6 @@ import { Respuesta } from 'src/app/interfaces/respuesta';
 import { trigger, transition, style, animate, state } from '@angular/animations';
 import * as $ from 'jquery';
 import { Includes } from 'src/app/utils/Includes';
-import { AppComponent } from 'src/app/app.component';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
@@ -24,19 +23,17 @@ import { AppComponent } from 'src/app/app.component';
 export class HomeComponent implements OnInit {
     constructor(
         private capitulosProvider: CapitulosService
-    ) {
-        //AppComponent.SubTitleBar = "Últimas actualizaciones";
-    }
-    public positionTooltip: string = "above";
+    ) {}
     public isError: boolean = false;
     public isLoad: boolean = false;
     public indexUpdates: Respuesta;
     ngOnInit(){
-        this.capitulosProvider.indexUpdates().then(index => {
+        $("title").text("BMANGA");
+        this.capitulosProvider.indexUpdates().subscribe(index => {
             this.indexUpdates = index;
             this.isError = false;
             this.isLoad = true;
-        }).catch(error => {
+        }, error => {
             Includes.saveErrorLog(error);
             this.isError = true;
             this.isLoad = true;

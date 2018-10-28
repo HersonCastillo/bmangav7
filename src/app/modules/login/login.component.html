@@ -1,3 +1,40 @@
-<p>
-  login works!
-</p>
+<br>
+<div class="formlogin">
+    <mat-progress-bar mode="indeterminate" *ngIf="isLoading" class="progresslinear"></mat-progress-bar>
+    <form onsubmit="return false">
+        <h1 class="title-static">Iniciar sesión</h1>
+        <br>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label><b>Usuario</b></mat-label>
+            <input matInput 
+            autocomplete="off"
+            [(ngModel)]="credentials.user"
+            style="color: #f8f8f8;"
+            [disabled]="isLoading"
+            name="username"
+            placeholder="Usuario o correo electrónico">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-hint>Puede ser un nombre de usuario o correo electrónico</mat-hint>
+        </mat-form-field>
+        <br><br>
+        <mat-form-field appearance="outline" style="width: 100%;">
+            <mat-label><b>Contraseña</b></mat-label>
+            <input matInput 
+            type="password"
+            [(ngModel)]="credentials.pass"
+            [disabled]="isLoading"
+            name="password"
+            style="color: #f8f8f8;"
+            placeholder="Contraseña">
+            <mat-icon matSuffix>security</mat-icon>
+        </mat-form-field>
+        <br><br>
+        <button mat-raised-button 
+        style="width: 100%;" 
+        color="primary" 
+        [disabled]="isLoading"
+        (click)="login()">
+            Iniciar sesión
+        </button>
+    </form>
+</div>

@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <br>
+    <span>Tamaño de la imagen</span>
+    <mat-slider
+        style="width: 100%;"
+        [max]="100"
+        [min]="0"
+        [step]="1"
+        [thumbLabel]="true"
+        [(ngModel)]="valueWidthImage"
+        (ngModelChange)="big()"
+    ></mat-slider>
+    <button mat-button style="width: 100%; text-align: left;" (click)="restaurar()">
+        <b>Borrar configuración actual</b><br>
+        Restaurar la configuración por defecto.
+    </button>
+</div>

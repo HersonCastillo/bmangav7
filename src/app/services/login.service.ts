@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Respuesta, Usuario } from '../interfaces/interfaces';
 import { Globals } from './global.service';
+import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
@@ -16,11 +17,8 @@ export class LoginService {
             .subscribe(r => rs(r), e => rj(e));
         });
     }
-    validateToken(): Promise<Respuesta>{
-        return new Promise<Respuesta>((rs, rj) => {
-            this.http.get<Respuesta>(`${this.globals.PATH}/auth/validate`)
-            .subscribe(r => rs(r), e => rj(e));
-        });
+    validateToken(): Observable<Usuario>{
+        return this.http.get<Usuario>(`${this.globals.PATH}/auth/validate`);
     }
     /**@deprecated */
     registrar(): Promise<Respuesta>{
