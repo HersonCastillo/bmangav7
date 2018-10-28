@@ -8,5 +8,7 @@ export interface Respuesta {
     random: {},
     code_update: string,
     code_books: string,
-    code_random: string
+    code_random: string,
+    token: string,
+    user: any
 }

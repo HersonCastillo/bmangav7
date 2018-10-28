@@ -1,0 +1,52 @@
+<div id="loader_allow" [@showAndroidMode]="(isLoad) ? 'hide' : 'show'">
+    <mat-spinner diameter="50" mode="indeterminate" class="center"></mat-spinner>
+</div>
+<br>
+<div class="container" [@showAndroidMode]="(isLoad) ? 'show' : 'hide'">
+    <div class="row">
+        <mat-tab-group>
+            <mat-tab label="Actualizaciones recientes">
+                <mat-card *ngIf="isError">
+                    <mat-icon class="icon-aux">error</mat-icon>
+                    <span style="margin-left: 10px;">Ocurrió un error al cargar la lista. Inténtalo mas tarde.</span>
+                </mat-card>
+                <div class="row">
+                    <div class="col-md-2" *ngFor="let updates of indexUpdates?.updates">
+
+                    </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Más capítulos disponibles">
+                <mat-card *ngIf="isError">
+                    <mat-icon class="icon-aux">error</mat-icon>
+                    <span style="margin-left: 10px;">Ocurrió un error al cargar la lista. Inténtalo mas tarde.</span>
+                </mat-card>
+            </mat-tab>
+            <mat-tab label="Popular en BMANGA">
+                <mat-card *ngIf="isError">
+                    <mat-icon class="icon-aux">error</mat-icon>
+                    <span style="margin-left: 10px;">Ocurrió un error al cargar la lista. Inténtalo mas tarde.</span>
+                </mat-card>
+                <br>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-3" *ngFor="let book of indexUpdates?.books">
+                            <mat-card class="no-padding-bottom news-card" [routerLink]="['/biblioteca', book.book_name]">
+                                <mat-card-header>
+                                    <mat-card-title>
+                                        {{acortar(book.book_name)}}
+                                    </mat-card-title>
+                                    <mat-card-subtitle>
+                                        {{book.views}} lecturas
+                                    </mat-card-subtitle>
+                                </mat-card-header>
+                                <img class="mat-image" mat-card-image [src]="book.image" alt="{{book.book_name}}">
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

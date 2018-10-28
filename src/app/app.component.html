@@ -2,16 +2,21 @@
     <mat-toolbar-row class="mat-elevation-z6">
         <a class="title-static" style="text-decoration: none;" routerLink="/"><b>BMANGA</b></a>
         <span class="flex"></span>
-        <!--<button mat-icon-button matTooltip="Descargar" class="icon-mar" [routerLink]="['descargar']">
-            <span class="material-icons">cloud_download</span>
-        </button>-->
-        <mat-slide-toggle [(ngModel)]="changeTheme" (ngModelChange)="eventChangeTheme($event)">Oscurecer</mat-slide-toggle>
         <button [routerLink]="['login']" mat-icon-button matTooltip="Iniciar sesión" [routerLink]="['login']" class="icon-mar">
-            <span class="material-icons">account_circle</span>
+            <mat-icon>account_circle</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Buscar mangas" [routerLink]="['buscar']" class="icon-mar">
-            <span class="material-icons">search</span>
+            <mat-icon>search</mat-icon>
         </button>
+        <button mat-icon-button matTooltip="Reportar problema" class="icon-mar">
+            <mat-icon>bug_report</mat-icon>
+        </button>
+        <mat-slide-toggle [(ngModel)]="changeTheme" (ngModelChange)="eventChangeTheme($event)">
+            <mat-icon style="margin-top: 5px;">brightness_medium</mat-icon>
+        </mat-slide-toggle>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="mat-elevation-z4" *ngIf="SubTitleBar.length > 0">
+        {{SubTitleBar}}
     </mat-toolbar-row>
 </mat-toolbar>
 <br><br><br>
