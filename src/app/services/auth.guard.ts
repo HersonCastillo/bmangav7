@@ -63,7 +63,10 @@ export class AuthGuardAdmin implements CanActivate {
                     this.includes.goTo(['/login']);
                 } else {
                     this.loginProvider.validateToken().subscribe(r => {
-                        if(r && r.type_user == 1) rs(true);
+                        if(r && r.type_user == 1){
+                            rs(true);
+                            localStorage.setItem('data', btoa(JSON.stringify(r)));
+                        }
                         else {
                             rs(false);
                             this.includes.goTo(['/login']);
@@ -103,7 +106,10 @@ export class AuthGuardUser implements CanActivate {
                     this.includes.goTo(['/login']);
                 } else {
                     this.loginProvider.validateToken().subscribe(r => {
-                        if(r && r.type_user == 2) rs(true);
+                        if(r && r.type_user == 2) {
+                            rs(true);
+                            localStorage.setItem('data', btoa(JSON.stringify(r)));
+                        }
                         else {
                             rs(false);
                             this.includes.goTo(['/login']);

@@ -12,12 +12,16 @@ import { AuthGuardAdmin, AuthGuardLogin, AuthGuardUser } from './services/auth.g
 import { LeerComponent } from './modules/leer/leer.component';
 import { CpanelAdminComponent } from './modules/usuarios/admin/cpanel-admin/cpanel-admin.component';
 import { CpanelUserComponent } from './modules/usuarios/user/cpanel-user/cpanel-user.component';
+import { CapitulosComponent } from './modules/usuarios/admin/views/capitulos/capitulos.component';
+import { LibrosComponent } from './modules/usuarios/admin/views/libros/libros.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'biblioteca/:id', component: BibliotecaComponent },
     { path: '@admin', component: CpanelAdminComponent, children: [
-
+        { path: 'capitulos', component: CapitulosComponent },
+        { path: 'libros', component: LibrosComponent },
+        { path: '', redirectTo: 'capitulos', pathMatch: 'full' }
     ], canActivate: [AuthGuardAdmin] },
     { path: '@me', component: CpanelUserComponent, children: [
 
@@ -54,7 +58,9 @@ const routes: Routes = [
         BibliotecaComponent,
         LeerComponent,
         CpanelAdminComponent,
-        CpanelUserComponent
+        CpanelUserComponent,
+        CapitulosComponent,
+        LibrosComponent
     ]
 })
 export class AppRoutingModule { }

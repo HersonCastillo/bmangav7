@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { SimpleComponent } from '../modals/simple/simple.component';
 import { Router } from '@angular/router';
+import { ConfirmComponent } from '../modals/confirm/confirm.component';
 @Injectable({
     providedIn: 'root'
 })
@@ -30,6 +31,20 @@ export class Includes {
             this.dialog.closeAll();
         }
         this.dialog.open(SimpleComponent);
+    }
+    confirm(title: string, message: string, fs: Function, fe?: Function): void{
+        ConfirmComponent.title = title;
+        ConfirmComponent.message = message;
+        ConfirmComponent.confirm = () => {
+            fs();
+            this.dialog.closeAll();
+        };
+        if(fe) ConfirmComponent.close = () => {
+            fe();
+            this.dialog.closeAll();
+        }
+        else ConfirmComponent.close = () => this.dialog.closeAll();
+        this.dialog.open(ConfirmComponent);
     }
     goTo(path: string[]): void{
         this.router.navigate(path);

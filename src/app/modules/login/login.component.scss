@@ -12,3 +12,11 @@ div.formlogin{
     width: 100%;;
     right: 0;
 }
+
+.control-image{
+    position: absolute;
+    left: 50%;
+    top: -60px;
+    transform: translate(-50%, -50%);
+    width: 90px;
+}

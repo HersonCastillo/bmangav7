@@ -2,14 +2,13 @@
 <div class="formlogin">
     <mat-progress-bar mode="indeterminate" *ngIf="isLoading" class="progresslinear"></mat-progress-bar>
     <form onsubmit="return false">
-        <h1 class="title-static">Iniciar sesión</h1>
+        <img src="assets/img/icon.png" alt="BMANGA Icon" class="control-image">
         <br>
         <mat-form-field appearance="outline" style="width: 100%;">
             <mat-label><b>Usuario</b></mat-label>
             <input matInput 
             autocomplete="off"
             [(ngModel)]="credentials.user"
-            style="color: #f8f8f8;"
             [disabled]="isLoading"
             name="username"
             placeholder="Usuario o correo electrónico">
@@ -24,7 +23,6 @@
             [(ngModel)]="credentials.pass"
             [disabled]="isLoading"
             name="password"
-            style="color: #f8f8f8;"
             placeholder="Contraseña">
             <mat-icon matSuffix>security</mat-icon>
         </mat-form-field>
