@@ -56,4 +56,14 @@ export class Includes {
             default: return "error";
         }
     }
+    static getStatus(driv: string) : string{
+        switch(driv){
+            case 'A': return "Activo";
+            case 'F': return "Finalizado";
+            case 'D': return "Abandonado";
+            case 'I': return "Irregular";
+            case 'P': return "Pausa indefinida";
+            default: return "Desconocido";
+        }
+    }
 }
