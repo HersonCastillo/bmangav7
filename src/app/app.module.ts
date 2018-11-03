@@ -29,7 +29,7 @@ export function Token(): string {
             config: {
                 tokenGetter: Token,
                 whitelistedDomains: [
-                    'localhost:80'
+                    'localhost:8081'
                 ],
                 skipWhenExpired: true
             }

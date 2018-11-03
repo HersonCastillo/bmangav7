@@ -15,7 +15,7 @@ export class CapitulosService {
     private indexValues: Respuesta = null;
     public indexUpdates(): Observable<Respuesta>{
         if(this.indexValues != null) return of(this.indexValues);
-        return this.http.get<Respuesta>(`${this.globals.PATH}/api/public/index`)
+        return this.http.get<Respuesta>(`${this.globals.PATH}api/public/index`)
             .pipe(map(d => d), tap(list => this.indexValues = list));
     }
 }

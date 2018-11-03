@@ -34,7 +34,8 @@ import {
     MatMenuModule,
     MatCheckboxModule,
     MatButtonToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatBadgeModule
 } from '@angular/material';
 
 import { MatProgressBarModule } 
@@ -76,7 +77,8 @@ from '@angular/material/progress-bar';
         MatCheckboxModule,
         MatButtonToggleModule,
         OverlayModule,
-        MatIconModule
+        MatIconModule,
+        MatBadgeModule
     ],
     exports: [
         MatButtonModule,
@@ -110,7 +112,8 @@ from '@angular/material/progress-bar';
         MatCheckboxModule,
         MatButtonToggleModule,
         OverlayModule,
-        MatIconModule
+        MatIconModule,
+        MatBadgeModule
     ],
     declarations: []
 })

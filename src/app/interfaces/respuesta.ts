@@ -10,5 +10,11 @@ export interface Respuesta {
     code_books: string,
     code_random: string,
     token: string,
-    user: any
+    user: any,
+    chapter: any,
+    chapters: Array<any>,
+    after: any,
+    before: any,
+    book: any,
+    imageName: string
 }

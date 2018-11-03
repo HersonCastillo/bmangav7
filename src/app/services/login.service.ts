@@ -13,12 +13,12 @@ export class LoginService {
     ) { }
     iniciarSesion(data: ILogin): Promise<Respuesta>{
         return new Promise<Respuesta>((rs, rj) => {
-            this.http.post<Respuesta>(`${this.globals.PATH}/auth/login`, data)
+            this.http.post<Respuesta>(`${this.globals.PATH}auth/login`, data)
             .subscribe(r => rs(r), e => rj(e));
         });
     }
     validateToken(): Observable<Usuario>{
-        return this.http.get<Usuario>(`${this.globals.PATH}/auth/validate`);
+        return this.http.get<Usuario>(`${this.globals.PATH}auth/validate`);
     }
     /**@deprecated */
     registrar(): Promise<Respuesta>{

@@ -7,5 +7,6 @@ export interface Libro {
     views?: number,
     _id_user: any,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
+    _id?: string
 }

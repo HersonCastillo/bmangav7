@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Includes } from '../../../../utils/Includes';
 import { Usuario } from 'src/app/interfaces/usuario';
-
+import * as $ from 'jquery';
 @Component({
     selector: 'app-cpanel-admin',
     templateUrl: './cpanel-admin.component.html',
@@ -19,6 +19,7 @@ export class CpanelAdminComponent implements OnInit{
     ) { }
     public nick: string = "Administrador";
     ngOnInit(): void{
+        $("title").text("Adminstración de BMANGA");
         let data = localStorage.getItem('data');
         if(data){
             try{

@@ -39,11 +39,22 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 11px;
 }
 ::-webkit-scrollbar-track {
-    background: #262626; 
+    background: transparent; 
 }
 ::-webkit-scrollbar-thumb {
     background: #888;
+    border-radius: 15px;
+    transition: .2s ease-in-out;
+    -webkit-transition: .2s ease-in-out;
+    -moz-transition: .2s ease-in-out;
 }
 ::-webkit-scrollbar-thumb:hover {
     background: #999; 
+}
+.div-block{
+    display: flex;
+    flex-direction: row;
+}
+.div-flex{
+    flex: 1 1 auto;
 }
