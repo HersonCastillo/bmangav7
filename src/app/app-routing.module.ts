@@ -14,13 +14,17 @@ import { CpanelAdminComponent } from './modules/usuarios/admin/cpanel-admin/cpan
 import { CpanelUserComponent } from './modules/usuarios/user/cpanel-user/cpanel-user.component';
 import { CapitulosComponent } from './modules/usuarios/admin/views/capitulos/capitulos.component';
 import { LibrosComponent } from './modules/usuarios/admin/views/libros/libros.component';
+import { EditCapituloComponent } from './modules/usuarios/admin/views/edit-capitulo/edit-capitulo.component';
+import { EditLibroComponent } from './modules/usuarios/admin/views/edit-libro/edit-libro.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'biblioteca/:id', component: BibliotecaComponent },
     { path: '@admin', component: CpanelAdminComponent, children: [
         { path: 'capitulos', component: CapitulosComponent },
+        { path: 'capitulos/:id', component: EditCapituloComponent },
         { path: 'libros', component: LibrosComponent },
+        { path: 'libros/:id', component: EditLibroComponent },
         { path: '', redirectTo: 'capitulos', pathMatch: 'full' }
     ], canActivate: [AuthGuardAdmin] },
     { path: '@me', component: CpanelUserComponent, children: [
@@ -60,7 +64,9 @@ const routes: Routes = [
         CpanelAdminComponent,
         CpanelUserComponent,
         CapitulosComponent,
-        LibrosComponent
+        LibrosComponent,
+        EditCapituloComponent,
+        EditLibroComponent
     ]
 })
 export class AppRoutingModule { }

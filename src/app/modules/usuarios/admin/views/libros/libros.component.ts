@@ -4,7 +4,6 @@ import { map, startWith } from 'rxjs/operators';
 import { Includes } from 'src/app/utils/Includes';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Libro } from '../../../../../interfaces/libro';
-import { SelectionModel } from '@angular/cdk/collections';
 import { LibrosService } from '../../../../../services/libros.service';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -21,8 +20,7 @@ export class LibrosComponent implements OnInit {
         private includes: Includes
     ) { }
     public pageEvent: PageEvent;
-    public displayedColumns: string[] = ['select', 'nombre', 'estado', 'usuario', 'opciones'];
-    public selection = new SelectionModel<Libro>(true, []);
+    public displayedColumns: string[] = ['nombre', 'estado', 'usuario', 'opciones'];
     public visible = true;
     public selectable = true;
     public removable = true;
@@ -64,16 +62,6 @@ export class LibrosComponent implements OnInit {
     @ViewChild('auto')
     public matAutocomplete: MatAutocomplete;
 
-    isAllSelected() {
-        const numSelected = this.selection.selected.length;
-        const numRows = this.libros.length;
-        return numSelected === numRows;
-    }
-    masterToggle() {
-        this.isAllSelected() ?
-            this.selection.clear() :
-            this.libros.forEach(row => this.selection.select(row));
-    }
     getBooks(): void {
         this.showIsLoad = true;
         this.libroProvider.obtener().subscribe(libros => {
@@ -102,9 +90,6 @@ export class LibrosComponent implements OnInit {
     }
     getStatus(driv: string): string{
         return Includes.getStatus(driv);
-    }
-    deleteBooks(): void{
-        
     }
     ngOnInit() {
         this.getBooks(); 
@@ -191,14 +176,12 @@ export class LibrosComponent implements OnInit {
             this.fruitCtrl.setValue(null);
         }
     }
-
     remove(fruit: string): void {
         const index = this.fruits.indexOf(fruit);
         if (index >= 0) {
             this.fruits.splice(index, 1);
         }
     }
-
     selected(event: MatAutocompleteSelectedEvent): void {
         let val = event.option.viewValue;
         let concurrences = this.fruits.filter(r => r.toLowerCase().includes(val.trim().toLowerCase()));
@@ -214,5 +197,26 @@ export class LibrosComponent implements OnInit {
     private _filter(value: string): string[] {
         const filterValue = value.toLowerCase();
         return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    }
+    copiarlink(val: Libro): void{
+        let url = `${Includes.URL_SITE}/biblioteca/${val.book_name}`;
+        if(Includes.copy(url)) this.includes.makeSnack("URL copiado en el portapapeles");
+        else this.includes.makeSnack("No se puede copiar la URL");
+    }
+    eliminar(val: Libro): void{
+        this.includes.confirm("¡Un momento!", "¿Estás seguro de que quieres eliminar este libro?", () => {
+            this.includes.makeSnack("Eliminando...", 1000);
+            this.isDeleting = true;
+            this.libroProvider.eliminar(val).subscribe(s => {
+                if(s.success) this.includes.makeSnack(s.success);
+                else if(s.error) this.includes.makeSnack(s.error);
+                else this.includes.makeSnack("Ocurrió un error al eliminar.");
+                this.isDeleting = false;
+            }, err => {
+                this.isDeleting = false;
+                Includes.saveErrorLog(err);
+                this.includes.simple("Mmm...", "No se puede borrar el libro en el servidor.");
+            });
+        });
     }
 }

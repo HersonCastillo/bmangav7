@@ -13,6 +13,10 @@ export class Includes {
         private dialog: MatDialog,
         private router: Router
     ){}
+    private static _URL_SITE = "http://localhost:4200/";
+    static get URL_SITE(){
+        return this._URL_SITE;
+    }
     static saveErrorLog(error: any): void{
         sessionStorage.setItem('logger', JSON.stringify(error));
     }
@@ -64,6 +68,23 @@ export class Includes {
             case 'I': return "Irregular";
             case 'P': return "Pausa indefinida";
             default: return "Desconocido";
+        }
+    }
+    static requestImage(imageName: string): boolean{
+        let reg: string = 'coverid-';
+        return imageName.includes(reg) && imageName.indexOf(reg) == 0;
+    }
+    static copy(data: any): boolean {
+        try{
+            var aux = document.createElement("input");
+            aux.setAttribute("value", data);
+            document.body.appendChild(aux);
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
+            return true;
+        }catch(ex){
+            return false;
         }
     }
 }
