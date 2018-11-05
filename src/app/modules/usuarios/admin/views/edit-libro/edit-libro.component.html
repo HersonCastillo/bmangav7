@@ -1,3 +1,89 @@
-<p>
-  edit-libro works!
-</p>
+<br>
+<div class="container">
+    <div class="row">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    Editar libro
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Edita cualquier de los siguientes campos
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-progress-bar mode="indeterminate" *ngIf="isLoad"></mat-progress-bar>
+                <form (ngSubmit)="edit()" *ngIf="!isLoad" [formGroup]="form">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Nombre del libro</mat-label>
+                        <input matInput type="text" autocomplete="off" formControlName="titulo">
+                        <mat-hint>Un nombre con carácteres válidos</mat-hint>
+                    </mat-form-field>
+                    <br><br>
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Descripción del libro</mat-label>
+                        <textarea matInput name="sinopsis" id="sinopsis" formControlName="descripcion"></textarea>
+                        <mat-hint>Una descripción con carácteres válidos</mat-hint>
+                    </mat-form-field>
+                    <br><br>
+                    <mat-form-field style="width: 100%;">
+                        <mat-chip-list #chipList>
+                            <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable"
+                                (removed)="remove(fruit)">
+                                {{fruit}}
+                                <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input placeholder="Géneros" #fruitInput [formControl]="fruitCtrl" [matAutocomplete]="auto"
+                                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                                {{fruit}}
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-hint>
+                            <ul>
+                                <li>Selecciona un género desplegado del autocompletar.</li>
+                                <li>Escribe tu género personalizado y presiona ENTER o COMMA para
+                                    agregarlo.</li>
+                            </ul>
+                        </mat-hint>
+                    </mat-form-field>
+                    <br><br><br>
+                    <mat-label>Estado del libro</mat-label>
+                    <br><br>
+                    <mat-button-toggle-group [disabled]="isLoad" name="statusBook" [ngModelOptions]="{standalone: true}"
+                        [(ngModel)]="status" aria-label="Estado común del libro">
+                        <mat-button-toggle value="A">Activo</mat-button-toggle>
+                        <mat-button-toggle value="D">Abandonado</mat-button-toggle>
+                        <mat-button-toggle value="F">Finalizado</mat-button-toggle>
+                        <mat-button-toggle value="I">Irregular</mat-button-toggle>
+                        <mat-button-toggle value="P">Pausa indefinida</mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="image_cover">Imagen de portada</label><br><br>
+                                <input (change)="changeFile($event)" type="file" name="image_cover"
+                                    id="image_cover" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <mat-label>Imagen actual</mat-label><br>
+                            <img [src]="imageData" alt="resource" width="100">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="div-block">
+                        <span class="div-flex"></span>
+                        <button mat-stroked-button color="primary" [disabled]="isLoad || !form.valid">
+                            <b>EDITAR INFORMACIÓN</b>
+                        </button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<br>

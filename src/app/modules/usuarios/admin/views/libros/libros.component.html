@@ -48,6 +48,7 @@
                             </table>
                             <mat-paginator [length]="lengthData" [pageSize]="pageSize" (page)="pageEvent = $event">
                             </mat-paginator>
+                            <small><b>Los datos pueden tardar en actualizarse.</b></small>
                         </div>
                     </mat-tab>
                     <mat-tab label="Formulario para un nuevo libro">
@@ -116,7 +117,12 @@
                                 <div class="div-block">
                                     <span class="div-flex"></span>
                                     <button [disabled]="!form.valid || isLoad" mat-stroked-button color="primary" type="submit">
-                                        <b>GUARDAR LIBRO EN LA BIBLIOTECA</b>
+                                        <span *ngIf="!isLoad">
+                                            <b>GUARDAR LIBRO EN LA BIBLIOTECA</b>
+                                        </span>
+                                        <span *ngIf="isLoad">
+                                            <b>GUARDANDO...</b>
+                                        </span>
                                     </button>
                                 </div>
                             </form>
