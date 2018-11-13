@@ -1,3 +1,66 @@
-<p>
-    Works
-</p>
+<br>
+<div class="container">
+    <div class="row">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <b>Capítulos agregados en BMANGA</b>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Capítulos subidos a la plataforma.
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-tab-group>
+                    <mat-tab label="Capítulos ya publicados">
+                        <div class="container-fluid" style="padding: 30px;">
+                            <mat-progress-bar mode="indeterminate" *ngIf="showIsLoad"></mat-progress-bar>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Crear un nuevo capítulo">
+                        <div class="container-fluid" style="padding: 30px;">
+                            <mat-progress-bar mode="indeterminate" *ngIf="showIsLoad"></mat-progress-bar>
+                            <div *ngIf="showIsLoad">
+                                <mat-label>Subiendo capítulo...</mat-label>
+                                <h1>{{countImages}} / {{files.length}}</h1>
+                            </div>
+                            <form (ngSubmit)="saveChapter()" [formGroup]="form" *ngIf="!isLoad">
+                                <mat-form-field style="width: 50%">
+                                    <mat-select placeholder="Libro" formControlName="libro">
+                                        <mat-option *ngFor="let b of libros" [value]="b._id">{{b.book_name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field style="width: 50%">
+                                    <mat-label>Título (opcional)</mat-label>
+                                    <input type="text" formControlName="titulo" matInput autocomplete="off">
+                                </mat-form-field>
+                                <mat-form-field style="width: 50%">
+                                    <mat-label>Capítulo</mat-label>
+                                    <input type="number" formControlName="capitulo" matInput autocomplete="off">
+                                </mat-form-field>
+                                <mat-form-field style="width: 50%">
+                                    <mat-label>Joint (opcional)</mat-label>
+                                    <input type="text" formControlName="joint" matInput autocomplete="off">
+                                    <mat-hint>Cada grupo separado con un <b>&</b></mat-hint>
+                                </mat-form-field>
+                                <br><br>
+                                <div>
+                                    <mat-label>Subir las imagenes (<b>png jpg jpeg</b>)</mat-label>
+                                    <br><br>
+                                    <input (change)="changeFile($event)" accept=".png,.jpg,.jpeg" type="file" multiple>
+                                </div>
+                                <div class="div-block">
+                                    <span class="div-flex"></span>
+                                    <button mat-stroked-button color="primary" [disabled]="isLoad || !form.valid">
+                                        <b>GUARDAR CAPÍTULO</b>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<br>

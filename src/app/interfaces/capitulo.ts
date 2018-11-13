@@ -1,9 +1,9 @@
 export interface Capitulo {
-    _id_book: any,
-    _id_user: any,
+    _id_book?: any,
+    _id_user?: any,
     title?: string,
     chapter: number,
-    storage: string,
+    storage: Array<string>,
     date_release?: Date,
     views: number,
     status?: string,
