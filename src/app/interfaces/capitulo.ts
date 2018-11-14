@@ -10,5 +10,6 @@ export interface Capitulo {
     joint?: string[],
     bcoin_value?: number,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
+    _id?: string
 }

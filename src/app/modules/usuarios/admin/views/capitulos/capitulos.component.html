@@ -15,12 +15,53 @@
                     <mat-tab label="Capítulos ya publicados">
                         <div class="container-fluid" style="padding: 30px;">
                             <mat-progress-bar mode="indeterminate" *ngIf="showIsLoad"></mat-progress-bar>
+                            <table mat-table [dataSource]="getData()" class="mat-elevation-z8" *ngIf="!showIsLoad">
+                                <ng-container matColumnDef="libro">
+                                    <th mat-header-cell *matHeaderCellDef> Libro </th>
+                                    <td mat-cell *matCellDef="let element"> {{getName(element)}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="titulo">
+                                    <th mat-header-cell *matHeaderCellDef> Título </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="capitulo">
+                                    <th mat-header-cell *matHeaderCellDef> # Capítulo </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.chapter}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fecha">
+                                    <th mat-header-cell *matHeaderCellDef> Fecha de publicación </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.createdAt | date}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="opciones">
+                                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button (click)="copiarlink(element)" mat-icon-button matTooltip="URL del libro"
+                                            [disabled]="isDeleting">
+                                            <mat-icon aria-label="Link">link</mat-icon>
+                                        </button>
+                                        <button [routerLink]="['/@admin', 'capitulos', element._id]" mat-icon-button color="primary"
+                                            matTooltip="Editar" [disabled]="isDeleting">
+                                            <mat-icon aria-label="Edit">edit</mat-icon>
+                                        </button>
+                                        <button (click)="eliminar(element)" mat-icon-button color="warn" matTooltip="Eliminar"
+                                            [disabled]="isDeleting">
+                                            <mat-icon aria-label="Delete">delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                                </tr>
+                            </table>
+                            <mat-paginator [length]="lengthData" [pageSize]="pageSize" (page)="pageEvent = $event">
+                            </mat-paginator>
                         </div>
                     </mat-tab>
                     <mat-tab label="Crear un nuevo capítulo">
                         <div class="container-fluid" style="padding: 30px;">
                             <mat-progress-bar mode="indeterminate" *ngIf="showIsLoad"></mat-progress-bar>
-                            <div *ngIf="showIsLoad">
+                            <div *ngIf="showIsLoad && isLoad">
+                                <br><br>
                                 <mat-label>Subiendo capítulo...</mat-label>
                                 <h1>{{countImages}} / {{files.length}}</h1>
                             </div>

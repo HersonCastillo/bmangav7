@@ -15,7 +15,7 @@ export class EditCapituloComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(val => {
             let id = val['id'];
-            alert(id)
+            
         });
     }
 }

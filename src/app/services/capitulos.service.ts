@@ -49,6 +49,9 @@ export class CapitulosService {
         return this.http.put<Respuesta>(`${this.globals.PATH}api/private/capitulo`, val);
     }
     public eliminar(_id: string): Observable<Respuesta>{
-        return this.http.delete<Respuesta>(`${this.globals.PATH}api/private/capitulos/${_id}`);
+        return this.http.delete<Respuesta>(`${this.globals.PATH}api/private/capitulo/${_id}`);
+    }
+    public listar(): Observable<Capitulo[]>{
+        return this.http.get<Capitulo[]>(`${this.globals.PATH}api/private/capitulo`);
     }
 }
