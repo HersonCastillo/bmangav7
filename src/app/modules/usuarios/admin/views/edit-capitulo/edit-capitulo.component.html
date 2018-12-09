@@ -1,0 +1,78 @@
+<br>
+<div class="container">
+    <div class="row">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    Editar capítulo
+                </mat-card-title>
+                <mat-card-subtitle>
+                    Edita cualquier de los siguientes campos
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-progress-bar mode="indeterminate" *ngIf="isLoad"></mat-progress-bar>
+                <form (ngSubmit)="edit()" [formGroup]="form" *ngIf="!isLoad">
+                    <mat-form-field style="width: 50%">
+                        <mat-select placeholder="Libro" formControlName="libro">
+                            <mat-option *ngFor="let b of libros" [value]="b._id">{{b.book_name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field style="width: 50%">
+                        <mat-label>Título (opcional)</mat-label>
+                        <input type="text" formControlName="titulo" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field style="width: 50%">
+                        <mat-label>Capítulo</mat-label>
+                        <input type="number" formControlName="capitulo" matInput autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field style="width: 50%">
+                        <mat-label>Joint (opcional)</mat-label>
+                        <input type="text" formControlName="joint" matInput autocomplete="off">
+                        <mat-hint>Cada grupo separado con un <b>&</b></mat-hint>
+                    </mat-form-field>
+                    <br><br>
+                    <div class="div-block">
+                        <span class="div-flex"></span>
+                        <button mat-stroked-button color="primary" [disabled]="isLoad || !form.valid">
+                            <b>GUARDAR CAPÍTULO</b>
+                        </button>
+                    </div>
+                </form>
+                <br>
+                <mat-divider></mat-divider>
+                <br>
+                <div class="div-block">
+                    <span>Imágenes del capítulo</span>
+                    <span class="div-flex"></span>
+                    <button *ngIf="blackList.length > 0" style="margin-right: 10px;" color="warn" [disabled]="!form.valid || isLoad" (click)="deleteManyImages()" title="Eliminar imagenes seleccionadas" mat-stroked-button>
+                        <mat-icon>delete</mat-icon>
+                        <mat-label>Eliminar imagenes seleccionadas</mat-label>
+                    </button>
+                    <input (change)="changeFile($event)" type="file" multiple>
+                    <button [disabled]="!form.valid || files.length == 0 || isLoad" (click)="saveImages()" title="Agregar una nueva imagen" mat-button color="primary">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <br>
+                <div class="container-fluid">
+                    <div class="row">
+                        <mat-card style="margin: 5px;" class="col-xs-6 col-sm-3 col-md-2" *ngFor="let img of images">
+                            <img class="wrapp" [src]="img.data" alt="Imagen" onerror="this.src = 'assets/img/error_load_image.png'">
+                            <mat-card-actions>
+                                <button [disabled]="isLoad || !form.valid" (click)="deleteImage(img)" mat-raised-button>
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                                <mat-checkbox color="warn" style="margin-left: 10px;" (change)="addDeleteList($event)" [value]="img.name"></mat-checkbox>
+                            </mat-card-actions>
+                        </mat-card>
+                        <mat-label *ngIf="images.length == 0">
+                            No hay imagenes para mostrar.
+                        </mat-label>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<br>

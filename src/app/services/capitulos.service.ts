@@ -38,10 +38,10 @@ export class CapitulosService {
         let data = new FormData();
         data.append('image', file);
         return this.http.post<Respuesta>(`${this.globals.PATH}api/private/capitulo/image/update?idkey=${idkey}`, data);
-    }
-    public getImage(code: string): Observable<Respuesta>{
-        return this.http.get<Respuesta>(`${this.globals.PATH}api/public/capitulos/image/${code}`);
     }*/
+    public getImage(code: string): Observable<Respuesta>{
+        return this.http.get<Respuesta>(`${this.globals.PATH}api/private/capitulo/images/${code}`);
+    }
     public crear(val: Capitulo): Observable<Respuesta>{
         return this.http.post<Respuesta>(`${this.globals.PATH}api/private/capitulo`, val);
     }
@@ -50,6 +50,9 @@ export class CapitulosService {
     }
     public eliminar(_id: string): Observable<Respuesta>{
         return this.http.delete<Respuesta>(`${this.globals.PATH}api/private/capitulo/${_id}`);
+    }
+    public obtener(_id: string): Observable<Capitulo>{
+        return this.http.get<Capitulo>(`${this.globals.PATH}api/private/capitulo/${_id}`);
     }
     public listar(): Observable<Capitulo[]>{
         return this.http.get<Capitulo[]>(`${this.globals.PATH}api/private/capitulo`);
