@@ -1,3 +1,93 @@
-<p>
-  buscar works!
-</p>
+<div id="loader_allow" [@showAndroidMode]="(isAllLoaded) ? 'hide' : 'show'">
+    <mat-spinner diameter="50" mode="indeterminate" class="center"></mat-spinner>
+</div>
+<br>
+<div class="container" [@showAndroidMode]="(isAllLoaded) ? 'show' : 'hide'">
+    <mat-card style="margin: 10px; padding: 20px;" *ngIf="errorData">
+        <h2>¡Ups!</h2>
+        <span>
+            Al parecer no hay contenido para mostrar. Probablemente en este momento se esten realizando alguna de las
+            siguientes acciones.
+            <li>Base de datos en mantenimiento o revisión.</li>
+            <li>Mantenimiento de módulos frágiles del sitio.</li>
+            <li>Posible ataque enemigo.</li>
+            <li>El API se encuentra en mantenimiento.</li>
+            <br>
+            Trataremos de solventar el problema para las siguientes horas. <br>
+            Gracias y <b>disculpas</b> por los inconvenientes.
+            <br><br>
+            <button mat-raised-button color="warn" routerLink="/">
+                Regresar a inicio
+            </button>
+        </span>
+    </mat-card>
+    <div class="container" *ngIf="!errorData">
+        <mat-card>
+            <form onsubmit="return false">
+                <mat-form-field style="width: 100%;" appearance="fill">
+                    <mat-label>Buscar</mat-label>
+                    <input type="text" [(ngModel)]="selected" placeholder="Escribe algo aqui..." aria-label="Resource"
+                        matInput [formControl]="control" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="change()">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.book_name">
+                            <img class="example-option-img" aria-hidden [src]="getImage(option._id)" height="25">
+                            {{option.book_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <span class="material-icons" matSuffix>search</span>
+                </mat-form-field>
+            </form>
+        </mat-card>
+        <div>
+            <br>
+            <mat-card [@showDataShared]="search ? 'show' : 'hide'">
+                <div class="row">
+                    <div class="col col-md-2">
+                        <img [src]="getImage(inOffert._id)" alt="BMANGA Resource" style="max-width: 100%; position: relative;"
+                            class="mat-elevation-z1" onerror="this.src='assets/img/error_load_image.png'">
+                    </div>
+                    <div class="col col-md-10">
+                        <h2>{{inOffert.nombre}}</h2>
+                        <i style="color: #ccc;">{{inOffert.genders_type}}</i>
+                        <p>
+                            {{inOffert.description}}
+                        </p>
+                        <button mat-raised-button color="primary" [routerLink]="['/biblioteca',inOffert?.book_name]">
+                            Leer más sobre este manga
+                        </button>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <br>
+    <div *ngIf="!errorData">
+        <div class="container">
+            <div class="row">
+                <div class="col col-md-3" *ngFor="let d of getData();" style="margin-bottom: 10px;">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <mat-card-title><b>{{reduce(d?.book_name, 15)}}</b></mat-card-title>
+                            <mat-card-subtitle>{{reduce(d?.genders_type, 10)}}</mat-card-subtitle>
+                        </mat-card-header>
+                        <img mat-card-image [src]="getImage(d._id)" alt="BMANGA Resource" style="max-height: 349px; height: 350px;">
+                        <mat-card-content>
+                            <p>
+                                {{reduce(d?.description, 15)}}
+                            </p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-button style="width: 100%;" [routerLink]="['/biblioteca', d?.book_name]">
+                                Más información
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+            <mat-paginator [length]="data.length" class="mat-elevation-z1" [pageSize]="8" [pageSizeOptions]="pageSizeOptions"
+                (page)="pageEvent = $event">
+            </mat-paginator>
+        </div>
+        <br>
+    </div>
+</div>

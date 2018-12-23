@@ -74,6 +74,10 @@ export class Includes {
         let reg: string = 'coverid-';
         return imageName.includes(reg) && imageName.indexOf(reg) == 0;
     }
+    static processImage(imageName: string, blob: any): string {
+        let extension = imageName.split('-')[2];
+        return `data:image/${extension};base64,${blob}`;
+    }
     static copy(data: any): boolean {
         try{
             var aux = document.createElement("input");

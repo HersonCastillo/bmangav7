@@ -45,7 +45,7 @@ const routes: Routes = [
         MaterialModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'})
     ],
     exports: [
         RouterModule,
