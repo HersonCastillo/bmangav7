@@ -20,6 +20,7 @@ import { EditLibroComponent } from './modules/usuarios/admin/views/edit-libro/ed
 const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'biblioteca/:id', component: BibliotecaComponent },
+    { path: 'leer/:id', component: LeerComponent },
     { path: '@admin', component: CpanelAdminComponent, children: [
         { path: 'capitulos', component: CapitulosComponent },
         { path: 'capitulos/:id', component: EditCapituloComponent },

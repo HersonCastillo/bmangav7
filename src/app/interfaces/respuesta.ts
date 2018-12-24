@@ -5,7 +5,7 @@ export interface Respuesta {
     books: [],
     updates: [],
     other_updates: [],
-    random: {},
+    random: any,
     code_update: string,
     code_books: string,
     code_random: string,

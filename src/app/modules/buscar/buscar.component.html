@@ -29,8 +29,8 @@
                     <input type="text" [(ngModel)]="selected" placeholder="Escribe algo aqui..." aria-label="Resource"
                         matInput [formControl]="control" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="change()">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.book_name">
-                            <img class="example-option-img" aria-hidden [src]="getImage(option._id)" height="25">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.book_name">
+                            <img class="example-option-img" aria-hidden [src]="getImage(option?._id)" height="25">
                             {{option.book_name}}
                         </mat-option>
                     </mat-autocomplete>
@@ -70,7 +70,7 @@
                             <mat-card-title><b>{{reduce(d?.book_name, 15)}}</b></mat-card-title>
                             <mat-card-subtitle>{{reduce(d?.genders_type, 10)}}</mat-card-subtitle>
                         </mat-card-header>
-                        <img mat-card-image [src]="getImage(d._id)" alt="BMANGA Resource" style="max-height: 349px; height: 350px;">
+                        <img mat-card-image [src]="getImage(d?._id)" alt="BMANGA Resource" style="max-height: 349px; height: 350px;">
                         <mat-card-content>
                             <p>
                                 {{reduce(d?.description, 15)}}

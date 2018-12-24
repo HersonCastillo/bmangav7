@@ -10,17 +10,76 @@
                     <mat-icon class="icon-aux">error</mat-icon>
                     <span style="margin-left: 10px;">Ocurrió un error al cargar la lista. Inténtalo mas tarde.</span>
                 </mat-card>
-                <div class="row">
-                    <div class="col-md-2" *ngFor="let updates of indexUpdates?.updates">
-
+                <br>
+                <mat-card [@showDataShared]="isLoad ? 'show' : 'hide'">
+                    <mat-label>
+                        <h3>
+                            <b>MANGA AL AZAR</b>
+                        </h3>
+                    </mat-label>
+                    <mat-divider></mat-divider>
+                    <br>
+                    <div class="row">
+                        <div class="col col-md-2">
+                            <img [src]="coverImage" alt="BMANGA Resource" style="max-width: 100%; position: relative;"
+                                class="mat-elevation-z1" onerror="this.src='assets/img/error_load_image.png'">
+                        </div>
+                        <div class="col col-md-10">
+                            <h2>{{indexUpdates?.random?.nombre}}</h2>
+                            <i style="color: #ccc;">{{indexUpdates?.random?.genders_type}}</i>
+                            <p>
+                                {{indexUpdates?.random?.description}}
+                            </p>
+                            <div class="div-block">
+                                <span class="div-flex"></span>
+                                <button mat-stroked-button color="primary" [routerLink]="['/biblioteca',indexUpdates?.random?.book_name]">
+                                    Leer más
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <br>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 col-md-2" *ngFor="let updates of indexUpdates?.updates">
+                            <mat-card class="no-padding-bottom news-card" [matMenuTriggerFor]="menu">
+                                <img class="mat-image-home" mat-card-image [src]="getImage(updates._id_book?._id)" alt="{{updates.book_name}}">
+                                <mat-card-actions style="padding-left: 3px; padding-right: 3px; padding-bottom: 2px;">
+                                    <mat-card-title>
+                                        <small>
+                                            <small>
+                                                {{acortar(updates._id_book.book_name, 17)}}
+                                            </small>
+                                        </small>
+                                    </mat-card-title>
+                                    <mat-card-subtitle>
+                                        capítulo <b>{{updates.chapter}}</b>
+                                    </mat-card-subtitle>
+                                </mat-card-actions>
+                            </mat-card>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item [routerLink]="['/leer', updates._id]">
+                                    <mat-icon>remove_red_eye</mat-icon>
+                                    <span>Leer capítulo</span>
+                                </button>
+                                <button mat-menu-item [routerLink]="['/biblioteca', updates._id_book?.book_name]">
+                                    <mat-icon>list_alt</mat-icon>
+                                    <span>Lista de capítulos</span>
+                                </button>
+                                <button mat-menu-item>
+                                    <mat-icon>cloud_download</mat-icon>
+                                    <span>Descargar</span>
+                                </button>
+                                <button mat-menu-item>
+                                    <mat-icon>share</mat-icon>
+                                    <span>Compartir</span>
+                                </button>
+                            </mat-menu>
+                        </div>
                     </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="Más capítulos disponibles">
-                <mat-card *ngIf="isError">
-                    <mat-icon class="icon-aux">error</mat-icon>
-                    <span style="margin-left: 10px;">Ocurrió un error al cargar la lista. Inténtalo mas tarde.</span>
-                </mat-card>
+                <br>
             </mat-tab>
             <mat-tab label="Popular en BMANGA">
                 <mat-card *ngIf="isError">

@@ -32,6 +32,9 @@
 .mat-image{
     height: 350px;
 }
+.mat-image-home{
+    height: 150px;
+}
 .cnt{
     position: absolute;
     left: 125px;
@@ -48,4 +51,11 @@
 }
 .no-padding-bottom{
     padding-bottom: 0px !important;
+}
+.div-block{
+    display: flex;
+    flex-direction: row;
+}
+.div-flex{
+    flex: 1 0 auto;
 }
